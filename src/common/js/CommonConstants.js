@@ -1,5 +1,4 @@
 
-
 export default class CommonConstants {
 
     // 悬浮窗小图标路径
