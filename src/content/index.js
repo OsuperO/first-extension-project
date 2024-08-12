@@ -7,7 +7,7 @@ export default function Content() {
 
   return (  
       <div className='CRX-content'>
-          {/* <ContentMain/> */}
+          <ContentMain/>
     </div>
   )
 }

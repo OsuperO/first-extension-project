@@ -12,12 +12,14 @@ export default function ContentMain() {
     // 悬浮窗点击
     const floatWindowOnClick = () => {
         setDrawerVisible(true)
+        // chrome.sidePanel.open();
 
     }   
 
     // 抽屉关闭
     const drawerClose = () => {
         setDrawerVisible(false)
+        // chrome.sidePanel.close();
     }
 
     // 关闭悬浮窗
@@ -30,7 +32,7 @@ export default function ContentMain() {
                 onClick={floatWindowOnClick} isShow={floatWindowVisible}
                 closeOnClick={closeFloatWindow}
             />
-            {  drawerVisible &&  <MainModal/> }   
+            {/* {  drawerVisible &&  <MainModal/> }    */}
             
             {/* <MainDrawer visible={drawerVisible} setVisible={setDrawerVisible} closeDrawer={drawerClose} /> */}
 

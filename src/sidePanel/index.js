@@ -22,8 +22,8 @@ class DebouncedResizeObserver extends NativeResizeObserver {
 window.ResizeObserver = DebouncedResizeObserver;
 root.render(
     <>
-        {/* <SidePanel /> */}
-        <ContentMain />
+        <SidePanel />
+        {/* <ContentMain /> */}
     </>
 );
 
