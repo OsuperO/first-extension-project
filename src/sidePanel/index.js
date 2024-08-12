@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import SidePanel from './components/sidepanel';
 import "./index.css"
 import { debounce } from "lodash";
-import ContentMain from './ContentMain';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -23,7 +22,6 @@ window.ResizeObserver = DebouncedResizeObserver;
 root.render(
     <>
         <SidePanel />
-        {/* <ContentMain /> */}
     </>
 );
 

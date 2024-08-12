@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# 项目背景
+1. 根据文档完成一个侧边栏的插件项目搭建
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# 参考文档
+1. 微信公众号文章：
+2. https://doc.yilijishu.info/chrome/getstarted.html
 
-In the project directory, you can run:
+# 参考项目
+1. yjj的项目：https://github.com/995854654/forty-extension
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# 扩展程序的结构
+1. 插件的后台脚本入口文件是background/index.js
+2. 插件的内容入口脚本文件是content/index.js
+3. 插件的小窗口入口文件是popup/index.js
+4. 插件的侧边栏入口文件是sidePanel/index.js
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 文件结构解释
+```txt
+// src文件夹下的目录树
+├─api     // 项目所有的接口路由配置
+│      index.js  // 总接口配置，后端接口，以及插件监听目标页面的api接口
+│      lhjybt_api.js  // 插件监听灵活就业补贴的api接口
+│      xnjyknrysbbt_api.js  // 插件监听吸纳就业苦难补贴的api接口
+│      
+├─background  // 后台代码
+│      index.js
+│      
+├─common  // 通用包
+│  ├─css  // 通用css
+│  │      frame.css  
+│  │      global.css
+│  │      reset.css
+│  │      
+│  ├─js
+│  │      CommonConstants.js  // 常量配置
+│  │      subsidyConfig.js  // 补贴相关配置
+│  │      
+│  └─utils
+│          common.js  // 通用工具
+│          DateUtils.js  // 日期工具
+│          Logger.js  // 日志工具
+│          xpathAction.js  // xpath操作工具
+│          
+├─content  // content_script注入脚本
+│  │  content.less
+│  │  ContentMain.jsx  // content_script主组件。
+│  │  index.js   // content_script入口文件
+│  │  
+│  ├─columns
+│  │      columnsTotal.js
+│  │      
+│  └─components
+│      ├─FloatWindow  // 悬浮窗口
+│      │      floatWindow.less
+│      │      index.jsx
+│      │      
+│      ├─MainDrawer  // 抽屉窗口
+│      │      index.jsx
+│      │      
+│      ├─ProvinceDataShow  // 补贴类数据展示组件。
+│      │      index.jsx
+│      │      
+│      └─subsidy  // 细化每个补贴类数据展示组件
+│              LhjybtDataShow.jsx  // 灵活就业补贴数据展示
+│              XnjyknsbbtDataShow.jsx  // 吸纳就业补贴数据展示
+├─sidePanel  // 侧边栏
+│    │ 
+│    └─components
+│       └─sidePanel.jsx // 侧边栏主组件
+│              
+└─popup  // 插件小窗口
+    │  index.js  // 入口文件
+    │  popup.css  // 入口样式
+    │  
+    ├─components
+    ├─pages  // 页面
+    │  ├─Home  // 主页
+    │  └─Login  // 登录页面
+    │          index.jsx
+    │          login.less
+    │          
+    └─router // 小窗口的路由配置
+            index.js
+            
+```
