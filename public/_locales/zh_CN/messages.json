@@ -1,0 +1,5 @@
+{
+    "appName": { "message": "My first sider Extension!" },
+    "appDescription": { "message": "sider Extension" },
+    "PREFIX_URL":{"message":"http://127.0.0.1:8080/"}
+  }

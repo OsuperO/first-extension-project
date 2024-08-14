@@ -51,5 +51,6 @@
     "32": "/images/brain1.png",
     "48": "/images/brain1.png",
     "128": "/images/brain1.png"
-  }
+  },
+  "default_locale": "zh_CN"
 }
