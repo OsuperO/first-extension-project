@@ -6,12 +6,21 @@
  * @FilePath: \first-extension-project\src\content\index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+/* global chrome */
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import "./content.less"
 import ContentMain from './ContentMain';
 
 export default function Content() {
+  // content.js
+    function getDocumentCookies() {
+      const cookies = document.cookie;
+      console.log("Page Cookies:", cookies);
+      chrome.runtime.sendMessage({ type: "cookies", data: cookies });
+    }
+
+    getDocumentCookies();
 
   return (  
       <div className='CRX-content'>
