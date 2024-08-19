@@ -53,17 +53,14 @@ export default function SidePanel() {
   };
 
   const { count } = useSelector(state => state.counterModel);
-  console.log("count",count);
   const dispatch = useDispatch();
 
   const increment = () => {
     dispatch.counterModel.increment(1);
-    console.log("点击按钮+1得到count",count);
   };
 
   const incrementAsync = () => {
     dispatch.counterModel.incrementAsync(2);
-    console.log("点击按钮异步+2得到count",count);
   };
 
   return (

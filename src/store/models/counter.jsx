@@ -12,8 +12,6 @@ export const counterModel = createModel() ({
       })
     },
     effects: {
-      // handle state changes with impure functions.
-      // use async/await for async actions
       async incrementAsync(payload, rootState) {
         await new Promise(resolve => setTimeout(resolve, 2000))
         this.increment(payload)
