@@ -11,14 +11,16 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
-
+import { useSelector, useDispatch } from 'react-redux';
+ 
 export default function SidePanel() {
   useEffect(() => {
-    dealMessage();
+    // dealMessage();
   }, []);
 
   const [prefixUrl, setPrefixUrl] = useState("");
   const [backData, setBackData] = useState("");
+  // const [count, setCount] = useState(0);
 
   const dealMessage = async () => {
     let prefixUrl = chrome.i18n.getMessage('PREFIX_URL');
@@ -48,6 +50,20 @@ export default function SidePanel() {
       .catch(function (error) {
         console.error(error);
       });
+  };
+
+  const { count } = useSelector(state => state.counterModel);
+  console.log("count",count);
+  const dispatch = useDispatch();
+
+  const increment = () => {
+    dispatch.counterModel.increment(1);
+    console.log("点击按钮+1得到count",count);
+  };
+
+  const incrementAsync = () => {
+    dispatch.counterModel.incrementAsync(2);
+    console.log("点击按钮异步+2得到count",count);
   };
 
   return (
@@ -83,6 +99,12 @@ export default function SidePanel() {
               {backData}
             </p>
           </Box>
+          <Box>
+            <p>The count is { count }</p>
+            <button onClick = { increment }> + 1 </button>
+            <button onClick = { incrementAsync }> Async + 2</button>
+          </Box>
+
         </Box>
       </Grid>
     </Box>

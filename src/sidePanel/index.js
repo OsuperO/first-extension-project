@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import SidePanel from './components/sidepanel';
 import "./index.css"
 import { debounce } from "lodash";
+import { Provider } from "react-redux";
+import store from "@/store"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -20,8 +22,8 @@ class DebouncedResizeObserver extends NativeResizeObserver {
 
 window.ResizeObserver = DebouncedResizeObserver;
 root.render(
-    <>
+    <Provider store={store}>
         <SidePanel />
-    </>
+    </ Provider>
 );
 

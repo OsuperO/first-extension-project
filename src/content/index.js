@@ -17,7 +17,7 @@ export default function Content() {
     function getDocumentCookies() {
       const cookies = document.cookie;
       console.log("Page Cookies:", cookies);
-      chrome.runtime.sendMessage({ type: "cookies", data: cookies });
+      // chrome.runtime.sendMessage({ type: "cookies", data: cookies });
     }
 
     getDocumentCookies();
