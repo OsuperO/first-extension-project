@@ -1,8 +1,8 @@
 /*
  * @Author: = dengyy
  * @Date: 2024-08-12 10:37:21
- * @LastEditors: = dengyy
- * @LastEditTime: 2024-08-13 11:08:51
+ * @LastEditors: = 2906177060@qq.com
+ * @LastEditTime: 2024-08-19 17:27:15
  * @FilePath: \first-extension-project\src\sidePanel\components\sidepanel\index.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -11,14 +11,17 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 export default function SidePanel() {
   useEffect(() => {
-    dealMessage();
+    // dealMessage();
   }, []);
 
   const [prefixUrl, setPrefixUrl] = useState("");
   const [backData, setBackData] = useState("");
+  // const [count, setCount] = useState(0);
 
   const dealMessage = async () => {
     let prefixUrl = chrome.i18n.getMessage('PREFIX_URL');
@@ -30,7 +33,6 @@ export default function SidePanel() {
       action: 'sidePanelGetData',
       data: {},
     });
-
     setBackData(backData);
   };
 
@@ -49,6 +51,21 @@ export default function SidePanel() {
         console.error(error);
       });
   };
+
+  // const increment = () => {
+  //   setCount(count+1)
+  // }
+  // const incrementAsync = () => {
+  //   setCount(count+1)
+  // }
+
+    // 使用 useSelector 从 store 中获取数据
+    const count = useSelector((state) => state.count);
+    // const count = 1;
+
+    // 使用 useDispatch 获取 dispatch 函数
+    const dispatch = useDispatch();
+  
 
   return (
     <Box
@@ -82,6 +99,17 @@ export default function SidePanel() {
             <p>
               {backData}
             </p>
+          </Box>
+          <Box>
+            <p>
+              The count is { count }
+            </p>
+            {/* <button onClick={ count + 1 }>+1</button>
+            <button onClick={ count + 2 }>Async+2</button> */}
+            {/* <button onClick={ increment(1) }>+1</button>
+            <button onClick={ incrementAsync(2) }>Async+2</button> */}
+            <button onClick={ dispatch.count.increment(1) }>+1</button>
+            <button onClick={ dispatch.count.incrementAsync(2) }>Async+2</button>
           </Box>
         </Box>
       </Grid>
