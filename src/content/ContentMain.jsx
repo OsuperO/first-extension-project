@@ -13,11 +13,21 @@ import FloatWindow from './components/FloatWindow'
 export default function ContentMain() {
     // 悬浮窗是否可视
     const [floatWindowVisible,setFloatWindowVisible] = useState(true)
+
+    // 监听来自background、popup和sidePanel的消息
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        switch (request.todo) {
+            case 'found_target_page':
+                console.log("【Message received in content】发现页面:", request.data);
+            default:
+                break;
+            }
+    });
     // 悬浮窗点击
     const floatWindowOnClick = () => {
         // 向background发送消息
         chrome.runtime.sendMessage({
-            action: 'changeSidePanel',
+            todo: 'changeSidePanel',
             data: {isShowSidePanel: true},
         })
         }   

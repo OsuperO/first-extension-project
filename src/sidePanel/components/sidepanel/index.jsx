@@ -2,7 +2,7 @@
  * @Author: = dengyy
  * @Date: 2024-08-12 10:37:21
  * @LastEditors: = 2906177060@qq.com
- * @LastEditTime: 2024-08-19 17:27:15
+ * @LastEditTime: 2024-08-20 10:35:49
  * @FilePath: \first-extension-project\src\sidePanel\components\sidepanel\index.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,25 +13,40 @@ import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
-
 export default function SidePanel() {
   useEffect(() => {
-    // dealMessage();
+    dealMessage();
   }, []);
 
   const [prefixUrl, setPrefixUrl] = useState("");
   const [backData, setBackData] = useState("");
-  // const [count, setCount] = useState(0);
+
+  // 接收消息
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    switch (message.todo) {
+      case 'UPDATE_SIDEPANEL':
+        // 在面板中更新数据
+        console.log("【Message received in sidePanel】更新数据", message.data);
+        // 可选：发送响应
+        sendResponse({ status: 'success' });
+        break;
+      case "found_target_page":
+        console.log("【Message received in sidePanel】发现页面:", message.data);
+        break;
+      default:
+        break;
+    }
+});
+
 
   const dealMessage = async () => {
     let prefixUrl = chrome.i18n.getMessage('PREFIX_URL');
     setPrefixUrl(prefixUrl);
 
     // 向background页面发送消息
-    console.log("向background发送消息sidePanelGetData");
     const backData = await chrome.runtime.sendMessage({
-      action: 'sidePanelGetData',
-      data: {},
+      todo: 'sidePanelGetData',
+      data: "hello, I'm sidePanel",
     });
     setBackData(backData);
   };
@@ -52,20 +67,15 @@ export default function SidePanel() {
       });
   };
 
-  // const increment = () => {
-  //   setCount(count+1)
-  // }
-  // const incrementAsync = () => {
-  //   setCount(count+1)
-  // }
+  const { count } = useSelector(state => state.counterModel);
+  const dispatch = useDispatch();
 
-    // 使用 useSelector 从 store 中获取数据
-    const count = useSelector((state) => state.count);
-    // const count = 1;
-
-    // 使用 useDispatch 获取 dispatch 函数
-    const dispatch = useDispatch();
-  
+  const increment = () => {
+    dispatch.counterModel.increment(1);
+  };
+  const incrementAsync = () => {
+    dispatch.counterModel.incrementAsync(2);
+  };
 
   return (
     <Box
@@ -101,15 +111,9 @@ export default function SidePanel() {
             </p>
           </Box>
           <Box>
-            <p>
-              The count is { count }
-            </p>
-            {/* <button onClick={ count + 1 }>+1</button>
-            <button onClick={ count + 2 }>Async+2</button> */}
-            {/* <button onClick={ increment(1) }>+1</button>
-            <button onClick={ incrementAsync(2) }>Async+2</button> */}
-            <button onClick={ dispatch.count.increment(1) }>+1</button>
-            <button onClick={ dispatch.count.incrementAsync(2) }>Async+2</button>
+            <p>The count is { count }</p>
+            <button onClick = { increment }> + 1 </button>
+            <button onClick = { incrementAsync }> Async + 2</button>
           </Box>
         </Box>
       </Grid>
